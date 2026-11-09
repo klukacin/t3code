@@ -12,7 +12,12 @@ import type { HttpClient } from "effect/http";
 import * as Stream from "effect/Stream";
 import { Atom } from "effect/reactivity";
 
-import type { EnvironmentRegistry } from "../connection/registry.ts";
+import { EnvironmentRegistry } from "../connection/registry.ts";
+import { ConnectionOnboarding } from "../connection/onboarding.ts";
+import { importEnvironmentTransfer } from "../connection/transfer.ts";
+import type { EnvironmentTransfer } from "@t3tools/contracts";
+import * as SubscriptionRef from "effect/SubscriptionRef";
+import { createRuntimeCommand } from "./runtime.ts";
 import { subscribe } from "../rpc/client.ts";
 import { executeConnectedEnvironmentHttpRequest } from "./environmentHttpAuth.ts";
 import { createEnvironmentCommand, createEnvironmentSubscriptionAtomFamily } from "./runtime.ts";
@@ -140,4 +145,22 @@ export function createAuthEnvironmentAtoms<R, E>(
         ),
     }),
   };
+}
+
+export function createEnvironmentTransferImportCommand<R, E>(
+  runtime: Atom.AtomRuntime<EnvironmentRegistry | ConnectionOnboarding | R, E>,
+) {
+  return createRuntimeCommand(runtime, {
+    label: "environment-transfer:import",
+    execute: Effect.fn("environmentTransfer.import")(function* (transfer: EnvironmentTransfer) {
+      const registry = yield* EnvironmentRegistry;
+      const onboarding = yield* ConnectionOnboarding;
+      const entries = yield* SubscriptionRef.get(registry.entries);
+      return yield* importEnvironmentTransfer(
+        transfer,
+        new Set(entries.keys()),
+        onboarding.registerPairing,
+      );
+    }),
+  });
 }

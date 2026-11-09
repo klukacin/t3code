@@ -1,3 +1,4 @@
+import { EnvironmentTransferPanel } from "./EnvironmentTransferPanel";
 import { SessionPermissions } from "./SessionPermissions";
 import { ChevronRightIcon, EllipsisIcon } from "lucide-react";
 import { useAtomValue } from "@effect/atom-react";
@@ -1615,6 +1616,7 @@ function ConnectionsSettingsContent({
           </div>
         }
       >
+        <EnvironmentTransferPanel />
         {listedEnvironments.map((environment) => (
           <SavedBackendListRow
             key={environment.environmentId}

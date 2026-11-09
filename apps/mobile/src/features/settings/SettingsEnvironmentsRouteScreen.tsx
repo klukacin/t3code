@@ -1,3 +1,4 @@
+import { EnvironmentTransferPanel } from "./EnvironmentTransferPanel";
 import { ScreenScrollView as ScrollView } from "../../components/ui/ScreenScrollView";
 import { useNavigation } from "@react-navigation/native";
 import { useAtomValue } from "@effect/atom-react";
@@ -128,6 +129,7 @@ export function SettingsEnvironmentsRouteScreen() {
           ) : undefined
         }
       >
+        <EnvironmentTransferPanel />
         <LocalEnvironmentList
           environments={localEnvironments}
           expandedId={null}

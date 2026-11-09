@@ -1,4 +1,5 @@
 export * from "./catalog.ts";
+export * from "./transfer.ts";
 export * from "./diagnosis.ts";
 export * as Connectivity from "./connectivity.ts";
 export * as CredentialStore from "./credentialStore.ts";
