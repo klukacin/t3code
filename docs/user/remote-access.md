@@ -93,6 +93,19 @@ in the receiving app. Connection settings are under **Settings → Environments*
 on web and desktop and **Settings → Environments** on mobile. A loopback address
 such as `127.0.0.1` reaches only the device opening the link.
 
+To add several environments on another device, use **Transfer environments** in
+**Settings → Environments**. Select the saved addresses that device can reach,
+then export the JSON and transfer it privately. Each environment grants standard
+client access through a single-use code that expires after five minutes; creating
+codes requires access-management permission and the scopes being granted.
+
+Open or paste the JSON on the receiving device and preview it before importing.
+Choose a reachable route for each environment, connecting NetBird or Tailscale
+when needed. Already saved environments and duplicate entries are skipped.
+Successful imports remain saved if another fails. An unavailable route can be
+retried after restoring connectivity; a rejected code may be expired or already
+used and requires a fresh export. Previewing does not redeem codes.
+
 On a computer with the desktop app, you can open the printed `t3code://pair`
 app link instead. The desktop app asks you to confirm the server address, then
 adds it.
